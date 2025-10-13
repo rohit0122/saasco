@@ -3,8 +3,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ThemeToggleButton } from '@/components/common/ThemeToggleButton';
 
-import Button from "@/components/ui/button/Button";
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 

@@ -41,7 +41,7 @@ const HomePage = () => {
                         <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight animate-fade-in">
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
                                 Everything you need
-                            </span>, nothing you don't
+                            </span>, nothing you dont
                         </h2>
 
                         <p className="mt-6 text-lg md:text-xl text-gray-600 dark:text-gray-300 italic animate-fade-in delay-200">

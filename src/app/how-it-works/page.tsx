@@ -1,12 +1,37 @@
+export const revalidate = 300; // Revalidate every 5 minutes
 
 import AppOpenLayout from "@/layout/AppOpenLayout";
 import { FaRegLightbulb, FaCogs, FaChartLine } from "react-icons/fa";
+
+
+import { getPageMetaBySlug } from "@/lib/pageData";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "SaasCo | Page",
-  description: "SaaS Co |  Template",
-};
+// Define the structure for metadata information
+interface PageMeta {
+  title: string;
+  description: string;
+  keywords: string;
+}
+
+// Generate metadata for the page
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getPageMetaBySlug("how-it-works");
+  const meta: PageMeta = data.pageMeta[0]; // Assuming the first item contains the metadata
+
+  return {
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      type: 'website',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/how-it-works`,
+    },
+  };
+}
+
 const steps = [
   {
     title: "Sign Up",

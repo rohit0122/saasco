@@ -1,12 +1,36 @@
+export const revalidate = 300; // Revalidate every 5 minutes
 
 import AppOpenLayout from "@/layout/AppOpenLayout";
 import { FaRocket, FaUsers, FaShieldAlt } from "react-icons/fa";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "SaasCo | Page",
-  description: "SaaS Co |  Template",
-};
+
+import { getPageMetaBySlug } from "@/lib/pageData";
+import { Metadata } from "next";
+// Define the structure for metadata information
+interface PageMeta {
+  title: string;
+  description: string;
+  keywords: string;
+}
+
+// Generate metadata for the page
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getPageMetaBySlug("home");
+  const meta: PageMeta = data.pageMeta[0]; // Assuming the first item contains the metadata
+
+  return {
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      type: 'website',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/home`,
+    },
+  };
+}
+
 const features = [
     { icon: <FaRocket size={28} className="text-indigo-500" />, title: "Fast Performance", desc: "Optimized for speed and reliability to scale with your business." },
     { icon: <FaUsers size={28} className="text-indigo-500" />, title: "User Friendly", desc: "Intuitive design for seamless experience for everyone." },

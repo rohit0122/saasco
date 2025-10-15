@@ -10,7 +10,20 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
-    domains: ['placehold.co'], // ✅ move under `images`
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+      },
+    ],
   },
 };
 

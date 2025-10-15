@@ -1,10 +1,32 @@
 import AppOpenLayout from "@/layout/AppOpenLayout";
+import { getPageMetaBySlug } from "@/lib/pageData";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "SaasCo | Page",
-  description: "SaaS Co |  Template",
-};
+// Define the structure for metadata information
+interface PageMeta {
+  title: string;
+  description: string;
+  keywords: string;
+}
+
+// Generate metadata for the page
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getPageMetaBySlug("pricing");
+  const meta: PageMeta = data.pageMeta[0]; // Assuming the first item contains the metadata
+
+  return {
+    title: meta.title,
+    description: meta.description,
+    keywords: meta.keywords,
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      type: 'website',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/pricing`,
+    },
+  };
+}
+
 const tiers = [
   { name: 'Starter', price: '0', features: ['1 Project', 'Basic Analytics', 'Community Support'] },
   { name: 'Pro', price: '49', features: ['10 Projects', 'Advanced Analytics', 'Email Support', 'API Access'], popular: true },
